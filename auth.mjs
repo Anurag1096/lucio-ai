@@ -1,36 +1,48 @@
 import fetch from "node-fetch";
+import fs from "fs";
+import fetchCookie from "fetch-cookie";
+
 import dotenv from "dotenv";
 dotenv.config();
+const fetchWithCookies = fetchCookie(fetch);
+let token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQW51cmFnIENoYWtyYXZhcnR5IiwiZW1haWwiOiJhbnVyYWdxd2VydHkwOUBvdXRsb29rLmNvbSIsImRhdGUiOiIyMDI1LTA2LTIwIDA5OjAzOjIzIn0.zPGrARwjJtLMDPYWIGm46DYdAVOB8Asvupl5GCDHREo";
 
-const Auth_cred = async (auth_token, token) => {
+const Auth_cred = async (token) => {
   try {
-    const endpoints = ["access-check"];
-
-    const payload = {
-      name: "Anurag chakravarty",
-      email: "anurag.011996@gmail.com",
-      date: "2025-06-19 15:39:18",
-    };
+    // step-1 access-check GET/POST finished
+    // step-2 look-around GET
+    const endpoints = ["look-around"];
 
     for (let ep of endpoints) {
-      const response = await fetch(`${process.env.API_URL_AUTH}${ep}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Cookie: `auth_token=${auth_token}`,
-          Referer: "https://lucioai.com",
-          Origin: "https://lucioai.com",
-          "Content-Type": "application/json",
-        },
-        
-      });
-      console.log(JSON.stringify(payload));
+      const response = await fetchWithCookies(
+        `${process.env.API_URL_AUTH}${ep}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `${token}`,
+            Cookie: `auth_token=${token}`,
+            "x-api-key": token,
+            "Content-Type": "application/json",
+            Referer: "https://lucioai.com",
+            "User-Agent": "mr_robot",
+          },
+        }
+      );
+
       console.log(response);
       console.log(
         `For endpoint ${ep} --> Response status ${response.status} :${response.statusText}`
       );
       const data = await response.json();
-      console.log(data);
+      console.log(data)
+    //   fs.writeFile("output_message.txt", JSON.stringify(data.message, null, 2), (err) => {
+    //     if (err) {
+    //       console.error("Error writing file:", err);
+    //     } else {
+    //       console.log("File written successfully.");
+    //     }
+    //   });
     }
   } catch (error) {
     console.log("Error occoured", error);
@@ -38,13 +50,12 @@ const Auth_cred = async (auth_token, token) => {
     console.log("Request finnished");
   }
 };
-let token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQW51cmFnIGNoYWtyYXZhcnR5IiwiZW1haWwiOiJhbnVyYWcuMDExOTk2QGdtYWlsLmNvbSIsImRhdGUiOiIyMDI1LTA2LTE5IDE1OjM5OjE4In0.RTn1RqjYtu_t_jPzjP27zF3qBiWYi38L_ruDNjIF6Yg";
-let auth_token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQW51cmFnIGNoYWtyYXZhcnR5IiwiZW1haWwiOiJhbnVyYWcuMDExOTk2QGdtYWlsLmNvbSIsImRhdGUiOiIyMDI1LTA2LTE5IDE1OjM5OjE4In0.RTn1RqjYtu_t_jPzjP27zF3qBiWYi38L_ruDNjIF6Yg";
-if (token === auth_token) {
-  console.log("match");
-  Auth_cred(auth_token, token);
-} else {
-  console.log("does not match");
-}
+// GET request passed
+// {
+// message: "Okay great, you've made it so far! For the next step, you need to get past our super secret API bouncer.\n" +
+//   '\n' +
+//   "They don't let people in at all unless you tell them that you're coming from lucioai.com and that you're actually mr_robot. You can send a POST request to this route to talk to the bouncer."
+// }
+// POST also passed
+
+Auth_cred(token);

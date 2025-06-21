@@ -1,3 +1,7 @@
 .env
-
+cleaned_script.js
+cleaning.mjs
+output_message.txt
+output2.txt
+auth.mjs
 node_modules/

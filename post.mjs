@@ -2,8 +2,8 @@ import fetch from 'node-fetch'
 import dotenv from 'dotenv';
 dotenv.config();
 const payload={
-    name:"Anurag chakravarty",
-    email:"anurag.011996@gmail.com"
+    name:"Anurag Chakravarty",
+    email:"anuragqwerty09@outlook.com"
 }
 
 const post_cred=async (payload)=>{
@@ -25,10 +25,6 @@ const post_cred=async (payload)=>{
    }
 
 }
-// The following is the response from the "POST" method
-// {
-//   message: "Okay great, show out your arm and take the entry stamp. Also take this Authorization token, you'll need to show it to the bouncer as well to get in.",
-// 
-// }
+
 
 post_cred(payload);
