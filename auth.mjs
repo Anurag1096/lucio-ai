@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const fetchWithCookies = fetchCookie(fetch);
 let token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQW51cmFnIENoYWtyYXZhcnR5IiwiZW1haWwiOiJhbnVyYWdxd2VydHkwOUBvdXRsb29rLmNvbSIsImRhdGUiOiIyMDI1LTA2LTIwIDA5OjAzOjIzIn0.zPGrARwjJtLMDPYWIGm46DYdAVOB8Asvupl5GCDHREo";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQW51cmFnIENoYWtyYXZhcnR5IiwiZW1haWwiOiJhbnVyYWdxd2VydHkwOUBvdXRsb29rLmNvbSIsImRhdGUiOiIyMDI1LTA2LTIzIDEzOjQxOjAxIn0.HScaxx0fdlZQBE-jeWUFwUfdsZKFDZ4BHiabhUdjOHg";
 
 const Auth_cred = async (token) => {
   try {
